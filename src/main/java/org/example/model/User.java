@@ -1,17 +1,20 @@
-package org.example.entity;
+package org.example.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Entity
 @Table(name = "users")
 public class User {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column
     private String name;
@@ -19,18 +22,18 @@ public class User {
     private String email;
     @Column
     private int age;
-    @Column
-    private LocalDateTime created_at;
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
 
     public User() {
     }
 
-    public User(Long id, String name, String email, int age, LocalDateTime created_at) {
+    public User(Long id, String name, String email, int age, LocalDateTime createdAt) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.age = age;
-        this.created_at = created_at;
+        this.createdAt = createdAt;
     }
 
     private void setId(Long id) {
@@ -61,16 +64,23 @@ public class User {
         this.age = age;
     }
 
-    public LocalDateTime getCreated_at() {
-        return created_at;
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCreated_at(LocalDateTime created_at) {
-        this.created_at = created_at;
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 
     public Long getId() {
         return id;
+    }
+
+    @PrePersist
+    private void onCreate() {
+        if (createdAt == null) {
+            createdAt = LocalDateTime.now();
+        }
     }
 
     @Override
@@ -80,7 +90,7 @@ public class User {
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", age=" + age +
-                ", created_at=" + created_at +
+                ", created_at=" + createdAt +
                 '}';
     }
 }
