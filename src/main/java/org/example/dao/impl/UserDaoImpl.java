@@ -1,6 +1,7 @@
 package org.example.dao.impl;
 
 import org.example.dao.UserDao;
+import org.example.exception.DatabaseException;
 import org.example.model.User;
 import org.example.util.HibernateSessionFactoryUtil;
 import org.hibernate.Session;
@@ -23,7 +24,7 @@ public class UserDaoImpl implements UserDao {
             if (tx != null && tx.isActive()) {
                 tx.rollback();
             }
-            throw new RuntimeException("Ошибка при создании пользователя", e);
+            throw new DatabaseException("Ошибка при создании пользователя", e);
         }
     }
 
@@ -54,7 +55,7 @@ public class UserDaoImpl implements UserDao {
             if (tx != null && tx.isActive()) {
                 tx.rollback();
             }
-            throw new RuntimeException("Ошибка при обновлении пользователя", e);
+            throw new DatabaseException("Ошибка при обновлении пользователя", e);
         }
     }
 
@@ -72,7 +73,7 @@ public class UserDaoImpl implements UserDao {
             if (tx != null && tx.isActive()) {
                 tx.rollback();
             }
-            throw new RuntimeException("Ошибка при удалении пользователя", e);
+            throw new DatabaseException("Ошибка при удалении пользователя", e);
         }
     }
 }
