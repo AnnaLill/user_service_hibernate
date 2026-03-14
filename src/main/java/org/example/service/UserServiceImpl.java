@@ -1,7 +1,7 @@
-package org.example.service.impl;
+package org.example.service;
 
 import org.example.dao.UserDao;
-import org.example.dao.impl.UserDaoImpl;
+import org.example.dao.UserDaoImpl;
 import org.example.dto.CreateUserDto;
 import org.example.dto.UpdateUserDto;
 import org.example.exception.UserNotFoundException;
@@ -13,7 +13,15 @@ import java.util.Optional;
 
 public class UserServiceImpl implements UserService {
 
-    private final UserDao userDao = new UserDaoImpl();
+    private final UserDao userDao;
+
+    public UserServiceImpl() {
+        this(new UserDaoImpl());
+    }
+
+    public UserServiceImpl(UserDao userDao) {
+        this.userDao = userDao;
+    }
 
     @Override
     public User create(CreateUserDto dto) {

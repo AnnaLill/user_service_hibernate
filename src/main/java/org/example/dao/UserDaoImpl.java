@@ -1,4 +1,4 @@
-package org.example.dao.impl;
+package org.example.dao;
 
 import org.example.dao.UserDao;
 import org.example.exception.DatabaseException;

@@ -2,7 +2,7 @@ package org.example;
 
 import org.example.console.UserMenuHandler;
 import org.example.service.UserService;
-import org.example.service.impl.UserServiceImpl;
+import org.example.service.UserServiceImpl;
 
 import java.util.Scanner;
 
